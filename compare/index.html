@@ -249,6 +249,32 @@
             color: #667eea;
         }
 
+        .nav-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .nav-btn {
+            padding: 10px 20px;
+            background: #2d3748;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: all 0.3s;
+            border: 2px solid #4a5568;
+        }
+
+        .nav-btn:hover {
+            background: #374151;
+            border-color: #667eea;
+            transform: translateY(-2px);
+        }
+
         .code-viewer-section {
             margin-bottom: 40px;
         }
@@ -362,6 +388,12 @@
     </style>
 </head>
 <body>
+    <div class="nav-buttons">
+        <a href="../" class="nav-btn">🏠 Home</a>
+        <a href="../vanilla/" class="nav-btn">🚀 Vanilla Version</a>
+        <a href="../react/" class="nav-btn">⚛️ React Version</a>
+    </div>
+
     <div class="header">
         <h1>⚡ React vs HTML/CSS/JS Performance Comparison</h1>
         <p>Identical pricing page • Real performance metrics • Side-by-side comparison</p>
@@ -374,7 +406,7 @@
 
     <div class="controls">
         <button class="btn" onclick="measurePerformance()">🔄 Re-measure Performance</button>
-        <button class="btn" onclick="window.location.href='../code-comparison/'">📝 View Detailed Code Comparison</button>
+        <button class="btn" onclick="window.location.href='../'">🏠 Back to Home</button>
         <button class="btn" onclick="window.open('../vanilla/index.html', '_blank')">🚀 Open Vanilla Version</button>
         <button class="btn" onclick="window.open('../react/index.html', '_blank')">⚛️ Open React Version</button>
     </div>

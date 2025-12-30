@@ -42,19 +42,24 @@ pricing-demo/
 - **Code Complexity Stats**: Lines of code and dependencies comparison
 - **Visual Performance Bars**: Easy-to-read metric comparisons
 
+## Live Demo
+
+Visit the live demo: **https://yourusername.github.io/pricing-demo/**
+
 ## Getting Started
 
 ### Prerequisites
 - A modern web browser (Chrome, Firefox, Safari, Edge)
 - A local web server (optional, but recommended for best results)
 
-### Running the Demos
+### Running Locally
 
 #### Option 1: Direct File Opening
-Simply open any HTML file directly in your browser:
-- `vanilla/index.html` - View vanilla implementation
-- `react/index.html` - View React implementation
-- `compare/index.html` - View comparison page
+Simply open `index.html` in your browser, then navigate to:
+- Home page with links to all demos
+- Vanilla implementation
+- React implementation
+- Comparison page
 
 #### Option 2: Local Web Server (Recommended)
 Using Python:
@@ -72,9 +77,27 @@ npx http-server
 ```
 
 Then navigate to:
+- http://localhost:8000/ - Home page
 - http://localhost:8000/vanilla/ - Vanilla version
 - http://localhost:8000/react/ - React version
 - http://localhost:8000/compare/ - Comparison page
+
+### Deploying to GitHub Pages
+
+1. Create a new repository on GitHub
+2. Push this code to the repository:
+   ```bash
+   git init
+   git add .
+   git commit -m "Initial commit"
+   git branch -M main
+   git remote add origin https://github.com/yourusername/pricing-demo.git
+   git push -u origin main
+   ```
+3. Go to repository Settings > Pages
+4. Under "Source", select "main" branch
+5. Click "Save"
+6. Your site will be live at `https://yourusername.github.io/pricing-demo/`
 
 ## Performance Insights
 
