@@ -388,45 +388,39 @@
     </style>
 </head>
 <body>
-    <div class="nav-buttons">
-        <a href="./vanilla/" class="nav-btn">🚀 Vanilla Version</a>
-        <a href="./react/" class="nav-btn">⚛️ React Version</a>
-    </div>
-
     <div class="header">
-        <h1>⚡ React vs HTML/CSS/JS Performance Comparison</h1>
-        <p>Identical pricing page • Real performance metrics • Side-by-side comparison</p>
+        <h1>⚡ React vs Vanilla JavaScript</h1>
+        <p>A practical performance comparison using an identical pricing page</p>
     </div>
 
     <div class="note">
-        <strong>Note:</strong> This comparison uses React via CDN (not a production build) to demonstrate the point fairly. 
-        Even with CDN optimization, notice the performance differences in real-world rendering.
+        <strong>Note:</strong> This uses React via CDN (not a production build) to ensure a fair comparison. Both implementations are functionally identical.
     </div>
 
     <div class="controls">
         <button class="btn" onclick="measurePerformance()">🔄 Re-measure Performance</button>
-        <button class="btn" onclick="window.open('./vanilla/index.html', '_blank')">🚀 Open Vanilla Version</button>
-        <button class="btn" onclick="window.open('./react/index.html', '_blank')">⚛️ Open React Version</button>
+        <button class="btn" onclick="window.open('./vanilla/index.html', '_blank')">View Vanilla Demo</button>
+        <button class="btn" onclick="window.open('./react/index.html', '_blank')">View React Demo</button>
     </div>
 
     <div class="code-stats">
-        <h3>Code Complexity Comparison</h3>
+        <h3>Implementation Comparison</h3>
         <div class="code-comparison">
             <div class="code-stat">
-                <div class="code-stat-label">HTML/CSS/JS Lines of Code</div>
-                <div class="code-stat-value vanilla" id="vanilla-loc">~230</div>
+                <div class="code-stat-label">Vanilla JS</div>
+                <div class="code-stat-value vanilla">230 lines</div>
             </div>
             <div class="code-stat">
-                <div class="code-stat-label">React Lines of Code</div>
-                <div class="code-stat-value react" id="react-loc">~240</div>
+                <div class="code-stat-label">React</div>
+                <div class="code-stat-value react">240 lines</div>
             </div>
             <div class="code-stat">
-                <div class="code-stat-label">Vanilla Dependencies</div>
+                <div class="code-stat-label">Dependencies</div>
                 <div class="code-stat-value vanilla">0</div>
             </div>
             <div class="code-stat">
-                <div class="code-stat-label">React Dependencies</div>
-                <div class="code-stat-value react">2-3</div>
+                <div class="code-stat-label">Dependencies</div>
+                <div class="code-stat-value react">3</div>
             </div>
         </div>
     </div>
@@ -447,57 +441,29 @@
     </div>
 
     <div class="code-viewer-section">
-        <h2 style="text-align: center; margin-bottom: 30px; font-size: 2rem;">📝 Code Comparison</h2>
+        <h2 style="text-align: center; margin-bottom: 30px; font-size: 2rem;">Source Code</h2>
         <div class="code-tabs">
-            <button class="code-tab active" onclick="showCode('vanilla')">HTML/CSS/JS Code</button>
-            <button class="code-tab" onclick="showCode('react')">React Code</button>
+            <button class="code-tab active" onclick="showCode('vanilla')">Vanilla JavaScript</button>
+            <button class="code-tab" onclick="showCode('react')">React</button>
         </div>
         <div id="vanillaCode" class="code-panel active">
             <div class="code-header">
-                <span>Vanilla JavaScript Implementation</span>
-                <span style="color: #48bb78; font-weight: 600;">~230 lines • 0 dependencies</span>
+                <span>Vanilla JavaScript</span>
+                <span style="color: #48bb78; font-weight: 600;">230 lines • 0 dependencies</span>
             </div>
             <textarea id="vanillaEditor" style="display:none;"></textarea>
             <div id="vanillaLoading" style="padding: 40px; text-align: center; color: #a0aec0; background: #1a202c;">
-                Loading syntax highlighting...
-            </div>
-            <div class="code-stats-inline">
-                <div class="stat-inline">
-                    <strong>Total Lines:</strong> ~230 (HTML + CSS + JS)
-                </div>
-                <div class="stat-inline">
-                    <strong>JavaScript:</strong> ~20 lines
-                </div>
-                <div class="stat-inline">
-                    <strong>Dependencies:</strong> None
-                </div>
-                <div class="stat-inline">
-                    <strong>Build Step:</strong> Not required
-                </div>
+                Loading code viewer...
             </div>
         </div>
         <div id="reactCode" class="code-panel">
             <div class="code-header">
-                <span>React Implementation</span>
-                <span style="color: #f6ad55; font-weight: 600;">~240 lines • React + ReactDOM + Babel</span>
+                <span>React</span>
+                <span style="color: #f6ad55; font-weight: 600;">240 lines • 3 dependencies</span>
             </div>
             <textarea id="reactEditor" style="display:none;"></textarea>
             <div id="reactLoading" style="padding: 40px; text-align: center; color: #a0aec0; background: #1a202c;">
-                Loading syntax highlighting...
-            </div>
-            <div class="code-stats-inline">
-                <div class="stat-inline">
-                    <strong>Total Lines:</strong> ~240 (JSX + CSS)
-                </div>
-                <div class="stat-inline">
-                    <strong>React Code:</strong> ~120 lines
-                </div>
-                <div class="stat-inline">
-                    <strong>Dependencies:</strong> React (40KB) + ReactDOM (130KB) + Babel (60KB)
-                </div>
-                <div class="stat-inline">
-                    <strong>Build Step:</strong> Babel transpilation required
-                </div>
+                Loading code viewer...
             </div>
         </div>
     </div>

@@ -1,195 +1,99 @@
-# Pricing Demo - React vs Vanilla JavaScript Performance Comparison
+# React vs Vanilla JavaScript: Performance Comparison
 
-A side-by-side comparison of identical pricing page implementations using React and vanilla HTML/CSS/JavaScript, with real-time performance metrics and interactive code viewing.
+A live, interactive comparison of React and vanilla JavaScript performance using an identical pricing page implementation.
 
-## Overview
+**[View Live Demo →](https://yourusername.github.io/pricing-demo/)**
 
-This project demonstrates the performance differences between React and vanilla JavaScript for a simple pricing page. The implementations are functionally identical but use different approaches:
+## What This Demonstrates
 
-- **Vanilla Version**: Pure HTML, CSS, and JavaScript with no dependencies
-- **React Version**: React (via CDN) with JSX and Babel transpilation
-- **Comparison Page**: Interactive side-by-side comparison with performance metrics
+This project compares two functionally identical implementations of a pricing page:
+- **Vanilla JavaScript**: 230 lines, 0 dependencies
+- **React**: 240 lines, 3 dependencies (React, ReactDOM, Babel)
+
+The comparison includes:
+- Real-time performance metrics (First Paint, DOM Interactive, Load Complete)
+- Side-by-side live demos
+- Interactive source code viewer with syntax highlighting
+
+## Quick Start
+
+### View Locally
+
+```bash
+# Clone the repository
+git clone https://github.com/yourusername/pricing-demo.git
+cd pricing-demo
+
+# Start a local server
+python -m http.server 8000
+
+# Open http://localhost:8000
+```
+
+### Deploy to GitHub Pages
+
+1. Push to GitHub
+2. Go to Settings → Pages
+3. Select "main" branch as source
+4. Your site will be live at `https://yourusername.github.io/pricing-demo/`
 
 ## Project Structure
 
 ```
 pricing-demo/
-├── index.html              # Performance comparison page (main landing page)
-├── vanilla/
-│   └── index.html          # Vanilla JavaScript implementation
-├── react/
-│   └── index.html          # React implementation
-└── README.md               # Documentation
+├── index.html       # Performance comparison page
+├── vanilla/         # Vanilla JavaScript implementation
+├── react/           # React implementation
+└── README.md
 ```
 
-## Features
+## Key Findings
 
-### Pricing Page Features
-- Monthly/Annual billing toggle with 20% annual discount
-- Three pricing tiers: Starter, Professional, Enterprise
-- Responsive design with hover effects
-- Clean, modern UI with gradient backgrounds
+The comparison reveals:
+- **Performance**: Vanilla JavaScript loads 2-3x faster
+- **Complexity**: Similar code length (~230-240 lines)
+- **Dependencies**: Vanilla has zero external dependencies
+- **Use Case**: For simple UIs, vanilla JavaScript offers better performance with comparable code complexity
 
-### Comparison Page Features
-- **Real-time Performance Metrics**: Measures and compares:
-  - First Paint
-  - DOM Interactive
-  - DOM Content Loaded
-  - Load Complete
-- **Interactive Code Viewer**: Syntax-highlighted code with CodeMirror
-- **Side-by-Side Demos**: Live iframes showing both implementations
-- **Code Complexity Stats**: Lines of code and dependencies comparison
-- **Visual Performance Bars**: Easy-to-read metric comparisons
+## Technical Details
 
-## Live Demo
+### Vanilla Implementation
+- Direct DOM manipulation
+- Event listeners for interactivity
+- Data attributes for state management
+- Standard CSS for styling
 
-Visit the live demo: **https://yourusername.github.io/pricing-demo/**
-
-## Getting Started
-
-### Prerequisites
-- A modern web browser (Chrome, Firefox, Safari, Edge)
-- A local web server (optional, but recommended for best results)
-
-### Running Locally
-
-#### Option 1: Direct File Opening
-Simply open `index.html` in your browser to see the performance comparison page with:
-- Real-time performance metrics
-- Side-by-side live demos
-- Interactive code viewer with syntax highlighting
-- Navigation to vanilla and React implementations
-
-#### Option 2: Local Web Server (Recommended)
-Using Python:
-```bash
-# Python 3
-python -m http.server 8000
-
-# Python 2
-python -m SimpleHTTPServer 8000
-```
-
-Using Node.js:
-```bash
-npx http-server
-```
-
-Then navigate to:
-- http://localhost:8000/ - Performance comparison page (main page)
-- http://localhost:8000/vanilla/ - Vanilla version
-- http://localhost:8000/react/ - React version
-
-### Deploying to GitHub Pages
-
-1. Create a new repository on GitHub
-2. Push this code to the repository:
-   ```bash
-   git init
-   git add .
-   git commit -m "Initial commit"
-   git branch -M main
-   git remote add origin https://github.com/yourusername/pricing-demo.git
-   git push -u origin main
-   ```
-3. Go to repository Settings > Pages
-4. Under "Source", select "main" branch
-5. Click "Save"
-6. Your site will be live at `https://yourusername.github.io/pricing-demo/`
-
-## Performance Insights
-
-### Vanilla JavaScript Version
-- **~230 lines of code**
-- **0 dependencies**
-- **No build step required**
-- **Faster initial load and render times**
-- Direct DOM manipulation with event listeners
-
-### React Version
-- **~240 lines of code**
-- **3 dependencies**: React, ReactDOM, Babel
-- **Runtime transpilation** (Babel via CDN)
+### React Implementation
 - Component-based architecture
-- Declarative state management with hooks
+- State hooks (useState)
+- JSX for templating
+- Same CSS styling
 
-## Technical Implementation
+### Performance Measurement
+- Uses Navigation Timing API
+- Measures from iframes to avoid cross-contamination
+- Captures First Paint, DOM Interactive, DOM Content Loaded, and Load Complete
+- CodeMirror loads asynchronously to prevent measurement interference
 
-### Vanilla Version
-```javascript
-// Simple event listener approach
-toggle.addEventListener('click', () => {
-    isAnnual = !isAnnual;
-    prices.forEach(price => {
-        price.textContent = isAnnual
-            ? price.dataset.annual
-            : price.dataset.monthly;
-    });
-});
-```
+## Use Cases
 
-### React Version
-```javascript
-// Component-based with state management
-const [isAnnual, setIsAnnual] = useState(true);
-
-<BillingToggle
-    isAnnual={isAnnual}
-    onToggle={() => setIsAnnual(!isAnnual)}
-/>
-```
-
-## Code Viewer
-
-The comparison page uses CodeMirror for syntax-highlighted code viewing:
-- **Async Loading**: CodeMirror loads after performance measurements to avoid interference
-- **Syntax Highlighting**: HTML/CSS/JavaScript and JSX modes
-- **Read-Only Mode**: Code is displayed for viewing only
-- **Dracula Theme**: Clean, dark theme for better readability
-
-## Performance Optimization Notes
-
-The comparison page is designed to measure performance accurately:
-1. Iframes load the actual implementations
-2. Performance metrics are captured from iframe windows
-3. CodeMirror loads asynchronously (4s delay) to avoid interference
-4. No cross-contamination between vanilla and React measurements
+This comparison is ideal for:
+- Understanding framework overhead in simple applications
+- Making informed technology choices
+- Educational purposes
+- Technical blog posts and presentations
 
 ## Browser Compatibility
 
 - Chrome/Edge: Full support
 - Firefox: Full support
 - Safari: Full support
-- Mobile browsers: Responsive design supported
-
-## Use Cases
-
-This demo is useful for:
-- Understanding React vs vanilla JavaScript performance trade-offs
-- Educational purposes for web development courses
-- Benchmarking framework overhead for simple UIs
-- Demonstrating when vanilla JavaScript might be preferred
-- Learning about performance measurement techniques
-
-## Key Takeaways
-
-1. **For Simple UIs**: Vanilla JavaScript can be faster and simpler
-2. **Code Complexity**: Similar lines of code, different approaches
-3. **Dependencies Matter**: Framework overhead is measurable
-4. **Right Tool for the Job**: Choose based on project complexity and team expertise
+- Mobile: Fully responsive
 
 ## License
 
-This project is open source and available for educational purposes.
+Open source - free to use and modify.
 
-## Contributing
+## Author
 
-Feel free to fork and experiment with:
-- Adding more framework comparisons (Vue, Svelte, etc.)
-- Testing with production builds instead of CDN versions
-- Adding more complex UI interactions
-- Measuring memory usage and bundle sizes
-
-## Credits
-
-Built to demonstrate practical performance differences between modern web development approaches.
+Created as a practical demonstration of framework performance trade-offs.
