@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pricing - React</title>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 40px;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .toggle-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 40px;
+        }
+
+        .toggle-label {
+            color: white;
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+
+        .toggle-label.active {
+            font-weight: 700;
+        }
+
+        .toggle-switch {
+            position: relative;
+            width: 60px;
+            height: 30px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 15px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .toggle-switch:hover {
+            background: rgba(255, 255, 255, 0.4);
+        }
+
+        .toggle-slider {
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            width: 24px;
+            height: 24px;
+            background: white;
+            border-radius: 50%;
+            transition: transform 0.3s;
+        }
+
+        .toggle-switch.annual .toggle-slider {
+            transform: translateX(30px);
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .pricing-card {
+            background: white;
+            border-radius: 12px;
+            padding: 40px 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .pricing-card.popular {
+            border: 3px solid #667eea;
+        }
+
+        .popular-badge {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 5px 20px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .plan-name {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: #2d3748;
+        }
+
+        .plan-description {
+            color: #718096;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        .price {
+            font-size: 3rem;
+            font-weight: 700;
+            color: #667eea;
+            margin-bottom: 5px;
+        }
+
+        .price-period {
+            color: #718096;
+            font-size: 0.9rem;
+            margin-bottom: 30px;
+        }
+
+        .features {
+            list-style: none;
+            margin-bottom: 30px;
+        }
+
+        .features li {
+            padding: 10px 0;
+            color: #4a5568;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .features li:before {
+            content: "✓";
+            color: #667eea;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .cta-button {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .cta-button:hover {
+            transform: scale(1.02);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .cta-button:active {
+            transform: scale(0.98);
+        }
+
+        .tech-badge {
+            text-align: center;
+            color: white;
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .pricing-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState } = React;
+
+        const PricingCard = ({ plan, isAnnual }) => {
+            const price = isAnnual ? plan.annualPrice : plan.monthlyPrice;
+            
+            return (
+                <div className={`pricing-card ${plan.popular ? 'popular' : ''}`}>
+                    {plan.popular && <div className="popular-badge">Most Popular</div>}
+                    <h3 className="plan-name">{plan.name}</h3>
+                    <p className="plan-description">{plan.description}</p>
+                    <div className="price">${price}</div>
+                    <div className="price-period">per month</div>
+                    <ul className="features">
+                        {plan.features.map((feature, index) => (
+                            <li key={index}>{feature}</li>
+                        ))}
+                    </ul>
+                    <button className="cta-button">{plan.cta}</button>
+                </div>
+            );
+        };
+
+        const BillingToggle = ({ isAnnual, onToggle }) => {
+            return (
+                <div className="toggle-container">
+                    <span className={`toggle-label ${!isAnnual ? 'active' : ''}`}>
+                        Monthly
+                    </span>
+                    <div 
+                        className={`toggle-switch ${isAnnual ? 'annual' : ''}`}
+                        onClick={onToggle}
+                    >
+                        <div className="toggle-slider"></div>
+                    </div>
+                    <span className={`toggle-label ${isAnnual ? 'active' : ''}`}>
+                        Annual (Save 20%)
+                    </span>
+                </div>
+            );
+        };
+
+        const PricingPage = () => {
+            const [isAnnual, setIsAnnual] = useState(true);
+
+            const plans = [
+                {
+                    name: 'Starter',
+                    description: 'Perfect for individuals and small projects',
+                    monthlyPrice: 9,
+                    annualPrice: 7,
+                    features: [
+                        '5 Projects',
+                        '10GB Storage',
+                        'Basic Support',
+                        'Community Access'
+                    ],
+                    cta: 'Get Started',
+                    popular: false
+                },
+                {
+                    name: 'Professional',
+                    description: 'For growing teams and businesses',
+                    monthlyPrice: 29,
+                    annualPrice: 23,
+                    features: [
+                        'Unlimited Projects',
+                        '100GB Storage',
+                        'Priority Support',
+                        'Advanced Analytics',
+                        'API Access'
+                    ],
+                    cta: 'Get Started',
+                    popular: true
+                },
+                {
+                    name: 'Enterprise',
+                    description: 'For large organizations with custom needs',
+                    monthlyPrice: 99,
+                    annualPrice: 79,
+                    features: [
+                        'Unlimited Everything',
+                        '1TB Storage',
+                        '24/7 Support',
+                        'Custom Integrations',
+                        'Dedicated Account Manager',
+                        'SLA Guarantee'
+                    ],
+                    cta: 'Contact Sales',
+                    popular: false
+                }
+            ];
+
+            return (
+                <div className="container">
+                    <div className="header">
+                        <h1>Choose Your Plan</h1>
+                        <p>Simple, transparent pricing for everyone</p>
+                    </div>
+
+                    <BillingToggle 
+                        isAnnual={isAnnual}
+                        onToggle={() => setIsAnnual(!isAnnual)}
+                    />
+
+                    <div className="pricing-grid">
+                        {plans.map((plan, index) => (
+                            <PricingCard 
+                                key={index}
+                                plan={plan}
+                                isAnnual={isAnnual}
+                            />
+                        ))}
+                    </div>
+
+                    <div className="tech-badge">Built with React</div>
+                </div>
+            );
+        };
+
+        // Performance marking
+        window.addEventListener('load', () => {
+            if (window.performance && window.performance.mark) {
+                window.performance.mark('react-loaded');
+            }
+        });
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<PricingPage />);
+    </script>
+</body>
+</html>
