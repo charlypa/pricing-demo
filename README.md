@@ -14,13 +14,12 @@ This project demonstrates the performance differences between React and vanilla 
 
 ```
 pricing-demo/
+├── index.html              # Performance comparison page (main landing page)
 ├── vanilla/
 │   └── index.html          # Vanilla JavaScript implementation
 ├── react/
 │   └── index.html          # React implementation
-├── compare/
-│   └── index.html          # Side-by-side comparison with metrics
-└── README.md
+└── README.md               # Documentation
 ```
 
 ## Features
@@ -55,11 +54,11 @@ Visit the live demo: **https://yourusername.github.io/pricing-demo/**
 ### Running Locally
 
 #### Option 1: Direct File Opening
-Simply open `index.html` in your browser, then navigate to:
-- Home page with links to all demos
-- Vanilla implementation
-- React implementation
-- Comparison page
+Simply open `index.html` in your browser to see the performance comparison page with:
+- Real-time performance metrics
+- Side-by-side live demos
+- Interactive code viewer with syntax highlighting
+- Navigation to vanilla and React implementations
 
 #### Option 2: Local Web Server (Recommended)
 Using Python:
@@ -77,10 +76,9 @@ npx http-server
 ```
 
 Then navigate to:
-- http://localhost:8000/ - Home page
+- http://localhost:8000/ - Performance comparison page (main page)
 - http://localhost:8000/vanilla/ - Vanilla version
 - http://localhost:8000/react/ - React version
-- http://localhost:8000/compare/ - Comparison page
 
 ### Deploying to GitHub Pages
 
