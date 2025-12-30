@@ -1,9 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <script>
+        performance.mark('native-start');
+    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pricing - HTML/CSS/JS</title>
+    <script>
+        performance.mark('native-html-parse-start');
+    </script>
     <style>
         * {
             margin: 0;
@@ -199,32 +205,6 @@
             opacity: 0.8;
         }
 
-        .nav-buttons {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin-bottom: 30px;
-            flex-wrap: wrap;
-        }
-
-        .nav-btn {
-            padding: 10px 20px;
-            background: rgba(255, 255, 255, 0.2);
-            color: white;
-            text-decoration: none;
-            border-radius: 8px;
-            font-size: 0.9rem;
-            font-weight: 600;
-            transition: all 0.3s;
-            border: 2px solid rgba(255, 255, 255, 0.3);
-        }
-
-        .nav-btn:hover {
-            background: rgba(255, 255, 255, 0.3);
-            border-color: rgba(255, 255, 255, 0.5);
-            transform: translateY(-2px);
-        }
-
         @media (max-width: 768px) {
             .header h1 {
                 font-size: 2rem;
@@ -235,17 +215,15 @@
             }
         }
     </style>
+    <script>
+        performance.mark('native-css-loaded');
+    </script>
 </head>
 <body>
     <div class="container">
-        <div class="nav-buttons">
-            <a href="../" class="nav-btn">← Back to Comparison</a>
-            <a href="../react/" class="nav-btn">View React Version →</a>
-        </div>
-
         <div class="header">
             <h1>Choose Your Plan</h1>
-            <p>Vanilla JavaScript Implementation</p>
+            <p>Simple, transparent pricing for everyone</p>
         </div>
 
         <div class="toggle-container">
@@ -306,18 +284,19 @@
     </div>
 
     <script>
+        performance.mark('native-js-execution-start');
         // Toggle functionality
         const toggle = document.getElementById('billingToggle');
         const monthlyLabel = document.getElementById('monthlyLabel');
         const annualLabel = document.getElementById('annualLabel');
         const prices = document.querySelectorAll('.price');
-        
+
         let isAnnual = true;
 
         toggle.addEventListener('click', () => {
             isAnnual = !isAnnual;
             toggle.classList.toggle('annual');
-            
+
             if (isAnnual) {
                 monthlyLabel.classList.remove('active');
                 annualLabel.classList.add('active');
@@ -325,17 +304,31 @@
                 monthlyLabel.classList.add('active');
                 annualLabel.classList.remove('active');
             }
-            
+
             prices.forEach(price => {
                 price.textContent = isAnnual ? price.dataset.annual : price.dataset.monthly;
             });
         });
 
-        // Performance marking
+        performance.mark('native-js-execution-complete');
+        performance.mark('native-complete');
+
+        // Create performance measures for each phase
+        performance.measure('native-parse-html', 'native-html-parse-start', 'native-css-loaded');
+        performance.measure('native-execute-js', 'native-js-execution-start', 'native-js-execution-complete');
+        performance.measure('native-total', 'native-start', 'native-complete');
+
+        // Store timing data for parent page to retrieve
         window.addEventListener('load', () => {
-            if (window.performance && window.performance.mark) {
-                window.performance.mark('vanilla-loaded');
-            }
+            performance.mark('native-loaded');
+
+            window.performanceData = {
+                marks: performance.getEntriesByType('mark'),
+                measures: performance.getEntriesByType('measure'),
+                paint: performance.getEntriesByType('paint'),
+                navigation: performance.getEntriesByType('navigation')[0],
+                resources: performance.getEntriesByType('resource')
+            };
         });
     </script>
 </body>

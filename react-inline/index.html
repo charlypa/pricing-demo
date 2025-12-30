@@ -3,17 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pricing - React</title>
+    <title>Pricing - React (Inline)</title>
     <script>
-        performance.mark('react-html-parse-start');
-        performance.mark('react-libs-load-start');
+        performance.mark('react-inline-html-parse-start');
+        performance.mark('react-inline-libs-parse-start');
     </script>
-    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
-    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
-    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="lib/react.production.min.js"></script>
+    <script src="lib/react-dom.production.min.js"></script>
     <script>
-        performance.mark('react-libs-load-complete');
-        performance.mark('react-css-parse-start');
+        performance.mark('react-inline-libs-parse-complete');
+        performance.mark('react-inline-css-parse-start');
     </script>
     <style>
         * {
@@ -221,70 +220,65 @@
         }
     </style>
     <script>
-        performance.mark('react-css-loaded');
+        performance.mark('react-inline-css-loaded');
     </script>
 </head>
 <body>
     <div id="root"></div>
 
-    <script type="text/babel">
-        performance.mark('react-babel-transform-start');
+    <script type="text/javascript">
+        // JSX pre-compiled using Babel - no runtime transformation needed
+        performance.mark('react-inline-render-start');
+
         const { useState } = React;
 
         const PricingCard = ({ plan, isAnnual }) => {
             const price = isAnnual ? plan.annualPrice : plan.monthlyPrice;
-            
-            return (
-                <div className={`pricing-card ${plan.popular ? 'popular' : ''}`}>
-                    {plan.popular && <div className="popular-badge">Most Popular</div>}
-                    <h3 className="plan-name">{plan.name}</h3>
-                    <p className="plan-description">{plan.description}</p>
-                    <div className="price">${price}</div>
-                    <div className="price-period">per month</div>
-                    <ul className="features">
-                        {plan.features.map((feature, index) => (
-                            <li key={index}>{feature}</li>
-                        ))}
-                    </ul>
-                    <button className="cta-button">{plan.cta}</button>
-                </div>
-            );
+            return /*#__PURE__*/React.createElement("div", {
+                className: `pricing-card ${plan.popular ? 'popular' : ''}`
+            }, plan.popular && /*#__PURE__*/React.createElement("div", {
+                className: "popular-badge"
+            }, "Most Popular"), /*#__PURE__*/React.createElement("h3", {
+                className: "plan-name"
+            }, plan.name), /*#__PURE__*/React.createElement("p", {
+                className: "plan-description"
+            }, plan.description), /*#__PURE__*/React.createElement("div", {
+                className: "price"
+            }, "$", price), /*#__PURE__*/React.createElement("div", {
+                className: "price-period"
+            }, "per month"), /*#__PURE__*/React.createElement("ul", {
+                className: "features"
+            }, plan.features.map((feature, index) => /*#__PURE__*/React.createElement("li", {
+                key: index
+            }, feature))), /*#__PURE__*/React.createElement("button", {
+                className: "cta-button"
+            }, plan.cta));
         };
 
         const BillingToggle = ({ isAnnual, onToggle }) => {
-            return (
-                <div className="toggle-container">
-                    <span className={`toggle-label ${!isAnnual ? 'active' : ''}`}>
-                        Monthly
-                    </span>
-                    <div 
-                        className={`toggle-switch ${isAnnual ? 'annual' : ''}`}
-                        onClick={onToggle}
-                    >
-                        <div className="toggle-slider"></div>
-                    </div>
-                    <span className={`toggle-label ${isAnnual ? 'active' : ''}`}>
-                        Annual (Save 20%)
-                    </span>
-                </div>
-            );
+            return /*#__PURE__*/React.createElement("div", {
+                className: "toggle-container"
+            }, /*#__PURE__*/React.createElement("span", {
+                className: `toggle-label ${!isAnnual ? 'active' : ''}`
+            }, "Monthly"), /*#__PURE__*/React.createElement("div", {
+                className: `toggle-switch ${isAnnual ? 'annual' : ''}`,
+                onClick: onToggle
+            }, /*#__PURE__*/React.createElement("div", {
+                className: "toggle-slider"
+            })), /*#__PURE__*/React.createElement("span", {
+                className: `toggle-label ${isAnnual ? 'active' : ''}`
+            }, "Annual (Save 20%)"));
         };
 
         const PricingPage = () => {
             const [isAnnual, setIsAnnual] = useState(true);
-
             const plans = [
                 {
                     name: 'Starter',
                     description: 'Perfect for individuals and small projects',
                     monthlyPrice: 9,
                     annualPrice: 7,
-                    features: [
-                        '5 Projects',
-                        '10GB Storage',
-                        'Basic Support',
-                        'Community Access'
-                    ],
+                    features: ['5 Projects', '10GB Storage', 'Basic Support', 'Community Access'],
                     cta: 'Get Started',
                     popular: false
                 },
@@ -293,13 +287,7 @@
                     description: 'For growing teams and businesses',
                     monthlyPrice: 29,
                     annualPrice: 23,
-                    features: [
-                        'Unlimited Projects',
-                        '100GB Storage',
-                        'Priority Support',
-                        'Advanced Analytics',
-                        'API Access'
-                    ],
+                    features: ['Unlimited Projects', '100GB Storage', 'Priority Support', 'Advanced Analytics', 'API Access'],
                     cta: 'Get Started',
                     popular: true
                 },
@@ -308,68 +296,46 @@
                     description: 'For large organizations with custom needs',
                     monthlyPrice: 99,
                     annualPrice: 79,
-                    features: [
-                        'Unlimited Everything',
-                        '1TB Storage',
-                        '24/7 Support',
-                        'Custom Integrations',
-                        'Dedicated Account Manager',
-                        'SLA Guarantee'
-                    ],
+                    features: ['Unlimited Everything', '1TB Storage', '24/7 Support', 'Custom Integrations', 'Dedicated Account Manager', 'SLA Guarantee'],
                     cta: 'Contact Sales',
                     popular: false
                 }
             ];
-
-            return (
-                <div className="container">
-                    <div className="header">
-                        <h1>Choose Your Plan</h1>
-                        <p>Simple, transparent pricing for everyone</p>
-                    </div>
-
-                    <BillingToggle 
-                        isAnnual={isAnnual}
-                        onToggle={() => setIsAnnual(!isAnnual)}
-                    />
-
-                    <div className="pricing-grid">
-                        {plans.map((plan, index) => (
-                            <PricingCard 
-                                key={index}
-                                plan={plan}
-                                isAnnual={isAnnual}
-                            />
-                        ))}
-                    </div>
-                </div>
-            );
+            return /*#__PURE__*/React.createElement("div", {
+                className: "container"
+            }, /*#__PURE__*/React.createElement("div", {
+                className: "header"
+            }, /*#__PURE__*/React.createElement("h1", null, "Choose Your Plan"), /*#__PURE__*/React.createElement("p", null, "Simple, transparent pricing for everyone")), /*#__PURE__*/React.createElement(BillingToggle, {
+                isAnnual: isAnnual,
+                onToggle: () => setIsAnnual(!isAnnual)
+            }), /*#__PURE__*/React.createElement("div", {
+                className: "pricing-grid"
+            }, plans.map((plan, index) => /*#__PURE__*/React.createElement(PricingCard, {
+                key: index,
+                plan: plan,
+                isAnnual: isAnnual
+            }))));
         };
 
-        performance.mark('react-babel-transform-complete');
-        performance.mark('react-render-start');
-
         const root = ReactDOM.createRoot(document.getElementById('root'));
-        root.render(<PricingPage />);
+        root.render(/*#__PURE__*/React.createElement(PricingPage, null));
 
-        performance.mark('react-render-complete');
+        performance.mark('react-inline-render-complete');
 
         // Store timing data after load
         window.addEventListener('load', () => {
-            performance.mark('react-loaded');
+            performance.mark('react-inline-loaded');
 
             // Get React library load times from Resource Timing API
             const resources = performance.getEntriesByType('resource');
             const reactLib = resources.find(r => r.name.includes('react.production.min.js'));
             const reactDomLib = resources.find(r => r.name.includes('react-dom.production.min.js'));
-            const babelLib = resources.find(r => r.name.includes('babel'));
 
-            // Create measures for each distinct phase
-            performance.measure('react-parse-html', 'react-html-parse-start', 'react-libs-load-start');
-            performance.measure('react-load-libs', 'react-libs-load-start', 'react-libs-load-complete');
-            performance.measure('react-parse-css', 'react-css-parse-start', 'react-css-loaded');
-            performance.measure('react-babel-transform', 'react-babel-transform-start', 'react-babel-transform-complete');
-            performance.measure('react-render', 'react-render-start', 'react-render-complete');
+            // Create measures for each distinct phase (4 phases, no Babel transform)
+            performance.measure('react-inline-parse-html', 'react-inline-html-parse-start', 'react-inline-libs-parse-start');
+            performance.measure('react-inline-parse-libs', 'react-inline-libs-parse-start', 'react-inline-libs-parse-complete');
+            performance.measure('react-inline-parse-css', 'react-inline-css-parse-start', 'react-inline-css-loaded');
+            performance.measure('react-inline-render', 'react-inline-render-start', 'react-inline-render-complete');
 
             window.performanceData = {
                 marks: performance.getEntriesByType('mark'),
@@ -379,8 +345,7 @@
                 resources: performance.getEntriesByType('resource'),
                 reactLibs: {
                     react: reactLib,
-                    reactDom: reactDomLib,
-                    babel: babelLib
+                    reactDom: reactDomLib
                 }
             };
         });
