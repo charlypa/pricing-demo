@@ -675,6 +675,14 @@
             color: #e2e8f0;
         }
 
+        .sequence-timeline-wrapper {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            position: relative;
+            min-height: 100px;
+        }
+
         .sequence-timeline {
             display: flex;
             gap: 5px;
@@ -683,6 +691,8 @@
             border-radius: 8px;
             padding: 10px;
             margin-bottom: 10px;
+            width: 100%;  /* Default to 100%, will be overridden by JS */
+            transition: width 0.3s ease;  /* Smooth transition when scaled */
         }
 
         .sequence-step {
@@ -729,6 +739,41 @@
         .step-time {
             font-size: 0.7rem;
             opacity: 0.9;
+        }
+
+        .time-axis {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin: 20px 10px 40px 10px;
+            padding: 0;
+            position: relative;
+            border-top: 2px solid #4a5568;
+        }
+
+        .time-marker {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            color: #a0aec0;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .time-marker::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 10px;
+            background: #4a5568;
+        }
+
+        .time-marker-label {
+            margin-top: 5px;
         }
 
         .sequence-step:hover::after {
@@ -970,26 +1015,28 @@
                 <!-- Native HTML/CSS/JS Timeline -->
                 <div class="sequence-track">
                     <div class="sequence-label">Native HTML/CSS/JS</div>
-                    <div class="sequence-timeline">
-                        <div class="sequence-step step-1" style="width: 50%;">
-                            <div class="step-content">
-                                <div class="step-number">1</div>
-                                <div class="step-name">Parse HTML + CSS</div>
-                                <div class="step-time">~0.5ms</div>
+                    <div class="sequence-timeline-wrapper">
+                        <div class="sequence-timeline">
+                            <div class="sequence-step step-1" style="width: 50%;">
+                                <div class="step-content">
+                                    <div class="step-number">1</div>
+                                    <div class="step-name">Parse HTML + CSS</div>
+                                    <div class="step-time">~0.5ms</div>
+                                </div>
                             </div>
-                        </div>
-                        <div class="sequence-step step-2" style="width: 50%;">
-                            <div class="step-content">
-                                <div class="step-number">2</div>
-                                <div class="step-name">Execute JS</div>
-                                <div class="step-time">~0.5ms</div>
+                            <div class="sequence-step step-2" style="width: 50%;">
+                                <div class="step-content">
+                                    <div class="step-number">2</div>
+                                    <div class="step-name">Execute JS</div>
+                                    <div class="step-time">~0.5ms</div>
+                                </div>
                             </div>
-                        </div>
-                        <div class="sequence-step step-3" style="width: 0%; display: none;">
-                            <div class="step-content">
-                                <div class="step-number">3</div>
-                                <div class="step-name"></div>
-                                <div class="step-time"></div>
+                            <div class="sequence-step step-3" style="width: 0%; display: none;">
+                                <div class="step-content">
+                                    <div class="step-number">3</div>
+                                    <div class="step-name"></div>
+                                    <div class="step-time"></div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -999,40 +1046,42 @@
                 <!-- React CDN Timeline -->
                 <div class="sequence-track">
                     <div class="sequence-label">React (CDN)</div>
-                    <div class="sequence-timeline">
-                        <div class="sequence-step step-1" style="width: 0.1%;">
-                            <div class="step-content">
-                                <div class="step-number">1</div>
-                                <div class="step-name">Parse HTML</div>
-                                <div class="step-time">~0.5ms</div>
+                    <div class="sequence-timeline-wrapper">
+                        <div class="sequence-timeline">
+                            <div class="sequence-step step-1" style="width: 0.1%;">
+                                <div class="step-content">
+                                    <div class="step-number">1</div>
+                                    <div class="step-name">Parse HTML</div>
+                                    <div class="step-time">~0.5ms</div>
+                                </div>
                             </div>
-                        </div>
-                        <div class="sequence-step step-2" style="width: 99.5%;">
-                            <div class="step-content">
-                                <div class="step-number">2</div>
-                                <div class="step-name">Load React Libraries</div>
-                                <div class="step-time">~687ms</div>
+                            <div class="sequence-step step-2" style="width: 99.5%;">
+                                <div class="step-content">
+                                    <div class="step-number">2</div>
+                                    <div class="step-name">Load React Libraries</div>
+                                    <div class="step-time">~687ms</div>
+                                </div>
                             </div>
-                        </div>
-                        <div class="sequence-step step-3" style="width: 0.1%;">
-                            <div class="step-content">
-                                <div class="step-number">3</div>
-                                <div class="step-name">Parse CSS</div>
-                                <div class="step-time">~0.3ms</div>
+                            <div class="sequence-step step-3" style="width: 0.1%;">
+                                <div class="step-content">
+                                    <div class="step-number">3</div>
+                                    <div class="step-name">Parse CSS</div>
+                                    <div class="step-time">~0.3ms</div>
+                                </div>
                             </div>
-                        </div>
-                        <div class="sequence-step step-4" style="width: 0.1%;">
-                            <div class="step-content">
-                                <div class="step-number">4</div>
-                                <div class="step-name">Babel Transform</div>
-                                <div class="step-time">~0.1ms</div>
+                            <div class="sequence-step step-4" style="width: 0.1%;">
+                                <div class="step-content">
+                                    <div class="step-number">4</div>
+                                    <div class="step-name">Babel Transform</div>
+                                    <div class="step-time">~0.1ms</div>
+                                </div>
                             </div>
-                        </div>
-                        <div class="sequence-step step-5" style="width: 0.2%;">
-                            <div class="step-content">
-                                <div class="step-number">5</div>
-                                <div class="step-name">React Render</div>
-                                <div class="step-time">~0.4ms</div>
+                            <div class="sequence-step step-5" style="width: 0.2%;">
+                                <div class="step-content">
+                                    <div class="step-number">5</div>
+                                    <div class="step-name">React Render</div>
+                                    <div class="step-time">~0.4ms</div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -1042,38 +1091,65 @@
                 <!-- React Inline Timeline -->
                 <div class="sequence-track">
                     <div class="sequence-label">React (Inline)</div>
-                    <div class="sequence-timeline">
-                        <div class="sequence-step step-1" style="width: 5%; background: linear-gradient(135deg, #4299e1 0%, #3182ce 100%);">
-                            <div class="step-content">
-                                <div class="step-number">1</div>
-                                <div class="step-name">Parse HTML</div>
-                                <div class="step-time">~0.5ms</div>
+                    <div class="sequence-timeline-wrapper">
+                        <div class="sequence-timeline">
+                            <div class="sequence-step step-1" style="width: 5%; background: linear-gradient(135deg, #4299e1 0%, #3182ce 100%);">
+                                <div class="step-content">
+                                    <div class="step-number">1</div>
+                                    <div class="step-name">Parse HTML</div>
+                                    <div class="step-time">~0.5ms</div>
+                                </div>
                             </div>
-                        </div>
-                        <div class="sequence-step step-2" style="width: 70%; background: linear-gradient(135deg, #4299e1 0%, #3182ce 100%);">
-                            <div class="step-content">
-                                <div class="step-number">2</div>
-                                <div class="step-name">Parse React Libs</div>
-                                <div class="step-time">~10ms</div>
+                            <div class="sequence-step step-2" style="width: 70%; background: linear-gradient(135deg, #4299e1 0%, #3182ce 100%);">
+                                <div class="step-content">
+                                    <div class="step-number">2</div>
+                                    <div class="step-name">Parse React Libs</div>
+                                    <div class="step-time">~10ms</div>
+                                </div>
                             </div>
-                        </div>
-                        <div class="sequence-step step-3" style="width: 5%; background: linear-gradient(135deg, #4299e1 0%, #3182ce 100%);">
-                            <div class="step-content">
-                                <div class="step-number">3</div>
-                                <div class="step-name">Parse CSS</div>
-                                <div class="step-time">~0.3ms</div>
+                            <div class="sequence-step step-3" style="width: 5%; background: linear-gradient(135deg, #4299e1 0%, #3182ce 100%);">
+                                <div class="step-content">
+                                    <div class="step-number">3</div>
+                                    <div class="step-name">Parse CSS</div>
+                                    <div class="step-time">~0.3ms</div>
+                                </div>
                             </div>
-                        </div>
-                        <div class="sequence-step step-4" style="width: 20%; background: linear-gradient(135deg, #4299e1 0%, #3182ce 100%);">
-                            <div class="step-content">
-                                <div class="step-number">4</div>
-                                <div class="step-name">React Render</div>
-                                <div class="step-time">~0.4ms</div>
+                            <div class="sequence-step step-4" style="width: 20%; background: linear-gradient(135deg, #4299e1 0%, #3182ce 100%);">
+                                <div class="step-content">
+                                    <div class="step-number">4</div>
+                                    <div class="step-name">React Render</div>
+                                    <div class="step-time">~0.4ms</div>
+                                </div>
                             </div>
                         </div>
                     </div>
                     <div class="sequence-total">Total: ~11ms</div>
                 </div>
+            </div>
+
+            <!-- Time Axis -->
+            <div class="time-axis" id="timeAxis">
+                <span class="time-marker">
+                    <span class="time-marker-label">0ms</span>
+                </span>
+                <span class="time-marker">
+                    <span class="time-marker-label">25ms</span>
+                </span>
+                <span class="time-marker">
+                    <span class="time-marker-label">50ms</span>
+                </span>
+                <span class="time-marker">
+                    <span class="time-marker-label">75ms</span>
+                </span>
+                <span class="time-marker">
+                    <span class="time-marker-label">100ms</span>
+                </span>
+                <span class="time-marker">
+                    <span class="time-marker-label">125ms</span>
+                </span>
+                <span class="time-marker">
+                    <span class="time-marker-label">150ms</span>
+                </span>
             </div>
 
             <div class="sequence-legend">
@@ -1242,7 +1318,6 @@
 
             const parseHTML = parseHTMLMeasure?.duration || 0;
             const executeJS = executeJSMeasure?.duration || 0;
-            const total = totalMeasure?.duration || (parseHTML + executeJS);
 
             const firstPaint = data.paint.find(p => p.name === 'first-contentful-paint')?.startTime || 0;
 
@@ -1251,9 +1326,10 @@
                     parseHTML: parseHTML,
                     executeJS: executeJS
                 },
-                total: total,  // Use custom measure for pure execution time
+                total: nav.loadEventEnd - nav.responseEnd,  // Use browser timing for metrics cards
+                loadComplete: nav.loadEventEnd - nav.responseEnd,  // Use browser timing for metrics cards
+                timelineTotal: parseHTML + executeJS,  // Use sum of marks for timeline visualization
                 domContentLoaded: nav.domContentLoadedEventEnd - nav.domInteractive,  // Milestone timing from domInteractive
-                loadComplete: total,  // Consistent with total execution time (not browser event timing)
                 domInteractive: nav.domInteractive - nav.responseEnd,  // Exclude network time
                 firstPaint: firstPaint
             };
@@ -1280,10 +1356,8 @@
             const babelTransform = babelTransformMeasure?.duration || 0;
             const reactRender = reactRenderMeasure?.duration || 0;
 
+            const sumOfMarks = parseHTML + loadLibs + parseCSS + babelTransform + reactRender;
             const firstPaint = data.paint.find(p => p.name === 'first-contentful-paint')?.startTime || 0;
-
-            // Total uses ONLY performance measures - each phase measured once
-            const total = parseHTML + loadLibs + parseCSS + babelTransform + reactRender;
 
             return {
                 phases: {
@@ -1293,9 +1367,10 @@
                     babelTransform: babelTransform,
                     reactRender: reactRender
                 },
-                total: total,
+                total: nav.loadEventEnd - nav.responseEnd,  // Use browser timing for metrics cards
+                loadComplete: nav.loadEventEnd - nav.responseEnd,  // Use browser timing for metrics cards
+                timelineTotal: sumOfMarks,  // Use sum of marks for timeline visualization
                 domContentLoaded: nav.domContentLoadedEventEnd - nav.responseEnd,  // Time to milestone (not event duration)
-                loadComplete: nav.loadEventEnd - nav.responseEnd,  // Time to milestone (not event duration)
                 domInteractive: nav.domInteractive - nav.responseEnd,  // Exclude network time
                 firstPaint: firstPaint
             };
@@ -1320,10 +1395,8 @@
             const parseCSS = parseCSSMeasure?.duration || 0;
             const reactRender = reactRenderMeasure?.duration || 0;
 
+            const sumOfMarks = parseHTML + parseLibs + parseCSS + reactRender;
             const firstPaint = data.paint.find(p => p.name === 'first-contentful-paint')?.startTime || 0;
-
-            // Total uses ONLY performance measures - each phase measured once (4 phases, no Babel transform)
-            const total = parseHTML + parseLibs + parseCSS + reactRender;
 
             return {
                 phases: {
@@ -1332,19 +1405,67 @@
                     parseCSS: parseCSS,
                     reactRender: reactRender
                 },
-                total: total,
+                total: nav.loadEventEnd - nav.responseEnd,  // Use browser timing for metrics cards
+                loadComplete: nav.loadEventEnd - nav.responseEnd,  // Use browser timing for metrics cards
+                timelineTotal: sumOfMarks,  // Use sum of marks for timeline visualization
                 domContentLoaded: nav.domContentLoadedEventEnd - nav.responseEnd,  // Time to milestone (not event duration)
-                loadComplete: nav.loadEventEnd - nav.responseEnd,  // Time to milestone (not event duration)
                 domInteractive: nav.domInteractive - nav.responseEnd,  // Exclude network time
                 firstPaint: firstPaint
             };
         }
 
         function updateTimelineVisualization(nativeMetrics, reactMetrics, reactInlineMetrics) {
-            updateNativeTimeline(nativeMetrics);
-            updateReactTimeline(reactMetrics);
+            // Find the maximum duration across all implementations for proportional scaling
+            const maxDuration = Math.max(
+                nativeMetrics.timelineTotal,
+                reactMetrics.timelineTotal,
+                reactInlineMetrics ? reactInlineMetrics.timelineTotal : 0
+            );
+
+            // Update each timeline with the max duration for scaling
+            updateNativeTimeline(nativeMetrics, maxDuration);
+            updateReactTimeline(reactMetrics, maxDuration);
             if (reactInlineMetrics) {
-                updateReactInlineTimeline(reactInlineMetrics);
+                updateReactInlineTimeline(reactInlineMetrics, maxDuration);
+            }
+
+            // Update time axis dynamically
+            updateTimeAxis(maxDuration);
+        }
+
+        function updateTimeAxis(maxDuration) {
+            const timeAxis = document.getElementById('timeAxis');
+            if (!timeAxis) return;
+
+            // Calculate appropriate increment (round to nice numbers)
+            const markerCount = 7;  // 0ms to max in 7 markers
+            let increment = maxDuration / (markerCount - 1);
+
+            // Round increment to nearest 10ms, 25ms, or 50ms for clean markers
+            if (increment <= 10) increment = 10;
+            else if (increment <= 25) increment = 25;
+            else if (increment <= 50) increment = 50;
+            else increment = Math.ceil(increment / 50) * 50;
+
+            // Generate time markers
+            timeAxis.innerHTML = '';
+            for (let i = 0; i < markerCount; i++) {
+                const time = i * increment;
+                if (time > maxDuration) break;  // Don't show markers beyond max
+
+                const marker = document.createElement('span');
+                marker.className = 'time-marker';
+                marker.innerHTML = `<span class="time-marker-label">${Math.round(time)}ms</span>`;
+                timeAxis.appendChild(marker);
+            }
+
+            // Add final marker at exact maxDuration if needed
+            const lastMarker = (markerCount - 1) * increment;
+            if (lastMarker < maxDuration) {
+                const marker = document.createElement('span');
+                marker.className = 'time-marker';
+                marker.innerHTML = `<span class="time-marker-label">${Math.round(maxDuration)}ms</span>`;
+                timeAxis.appendChild(marker);
             }
         }
 
@@ -1359,13 +1480,20 @@
             return `${ms.toFixed(0)}ms`;                 // 0 decimals for 10ms+
         }
 
-        function updateNativeTimeline(metrics) {
+        function updateNativeTimeline(metrics, maxDuration) {
             const { parseHTML, executeJS } = metrics.phases;
-            const total = metrics.total;
+            const total = metrics.timelineTotal;
+
+            // Calculate what percentage this timeline is of the max duration
+            const timelineScale = (total / maxDuration) * 100;
 
             // Calculate TRUE percentages - NO minimum enforcement (accurate representation)
             const parsePercent = (parseHTML / total) * 100;
             const jsPercent = (executeJS / total) * 100;
+
+            // Get the timeline container and scale it proportionally
+            const timeline = document.querySelector('.sequence-track:first-child .sequence-timeline');
+            timeline.style.width = `${timelineScale}%`;
 
             // Update step 1 (Parse HTML + CSS)
             const step1 = document.querySelector('.sequence-track:first-child .sequence-step.step-1');
@@ -1392,9 +1520,12 @@
             totalElement.textContent = `Total: ${total.toFixed(0)}ms`;
         }
 
-        function updateReactTimeline(metrics) {
+        function updateReactTimeline(metrics, maxDuration) {
             const { parseHTML, loadLibs, parseCSS, babelTransform, reactRender } = metrics.phases;
-            const total = metrics.total;
+            const total = metrics.timelineTotal;
+
+            // Calculate what percentage this timeline is of the max duration
+            const timelineScale = (total / maxDuration) * 100;
 
             // Calculate TRUE percentages - NO minimum enforcement (accurate representation)
             const parsePercent = (parseHTML / total) * 100;
@@ -1405,6 +1536,10 @@
 
             // Update all 5 steps with real measurements - NO DISTORTION
             const track = document.querySelector('.sequence-track:nth-child(2)');  // React CDN track
+            const timeline = track.querySelector('.sequence-timeline');
+
+            // Scale the entire timeline to be proportional to max duration
+            timeline.style.width = `${timelineScale}%`;
 
             const step1 = track.querySelector('.sequence-step.step-1');
             step1.style.width = `${parsePercent}%`;
@@ -1442,9 +1577,12 @@
             totalElement.textContent = `Total: ${total.toFixed(0)}ms`;
         }
 
-        function updateReactInlineTimeline(metrics) {
+        function updateReactInlineTimeline(metrics, maxDuration) {
             const { parseHTML, parseLibs, parseCSS, reactRender } = metrics.phases;
-            const total = metrics.total;
+            const total = metrics.timelineTotal;
+
+            // Calculate what percentage this timeline is of the max duration
+            const timelineScale = (total / maxDuration) * 100;
 
             // Calculate TRUE percentages - NO minimum enforcement (accurate representation)
             const parsePercent = (parseHTML / total) * 100;
@@ -1454,6 +1592,10 @@
 
             // Update all 4 steps with real measurements - NO DISTORTION (no Babel transform)
             const track = document.querySelector('.sequence-track:nth-child(3)');  // React Inline track
+            const timeline = track.querySelector('.sequence-timeline');
+
+            // Scale the entire timeline to be proportional to max duration
+            timeline.style.width = `${timelineScale}%`;
 
             const step1 = track.querySelector('.sequence-step.step-1');
             step1.style.width = `${parsePercent}%`;
